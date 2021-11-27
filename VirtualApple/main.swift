@@ -9,4 +9,5 @@ import AppKit
 
 let delegate = AppDelegate()
 NSApplication.shared.delegate = delegate
+NSApp.appearance = NSAppearance(named: .darkAqua)
 NSApp.run()
