@@ -45,4 +45,8 @@ extension WindowController: NSToolbarDelegate {
 		}
 		return toolbarItem
 	}
+    
+    func window(_ window: NSWindow, willUseFullScreenPresentationOptions proposedOptions: NSApplication.PresentationOptions = []) -> NSApplication.PresentationOptions {
+        return [.hideDock, .autoHideMenuBar, .autoHideToolbar, .fullScreen]
+    }
 }
