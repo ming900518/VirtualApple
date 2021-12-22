@@ -201,6 +201,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49D086FF274BBA9C00859181 /* VirtualApple.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = RYS7R26Y6Y;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				PRODUCT_BUNDLE_IDENTIFIER = su.mingchang.VirtualApple;
 			};
 			name = Debug;
 		};
@@ -208,6 +211,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49D086FF274BBA9C00859181 /* VirtualApple.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = RYS7R26Y6Y;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				PRODUCT_BUNDLE_IDENTIFIER = su.mingchang.VirtualApple;
 			};
 			name = Release;
 		};
