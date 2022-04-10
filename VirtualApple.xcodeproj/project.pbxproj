@@ -18,7 +18,7 @@
 		49F82D46274A0609004D986D /* VirtualMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F82D45274A0609004D986D /* VirtualMachine.swift */; };
 		49F82D48274A0CC5004D986D /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F82D47274A0CC5004D986D /* WindowController.swift */; };
 		49F82D4C274A0D98004D986D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F82D4B274A0D98004D986D /* ViewController.swift */; };
-		49F82D4E274A21C5004D986D /* ConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F82D4D274A21C5004D986D /* ConfigurationController.swift */; };
+		49F82D4E274A21C5004D986D /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F82D4D274A21C5004D986D /* ConfigurationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +41,7 @@
 		49F82D45274A0609004D986D /* VirtualMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualMachine.swift; sourceTree = "<group>"; };
 		49F82D47274A0CC5004D986D /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		49F82D4B274A0D98004D986D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		49F82D4D274A21C5004D986D /* ConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationController.swift; sourceTree = "<group>"; };
+		49F82D4D274A21C5004D986D /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +77,7 @@
 				4932440A2749D9F1003E8999 /* VirtualApple.entitlements */,
 				493244092749D9F1003E8999 /* Info.plist */,
 				493243FE2749D9F0003E8999 /* AppDelegate.swift */,
-				49F82D4D274A21C5004D986D /* ConfigurationController.swift */,
+				49F82D4D274A21C5004D986D /* ConfigurationViewController.swift */,
 				4969636C274C98AE00339822 /* FixedSize.swift */,
 				49D086F9274A7C3400859181 /* InstallViewController.swift */,
 				49D08702274BBDF000859181 /* LabeledSlider.swift */,
@@ -172,7 +172,7 @@
 				49D08701274BBD6300859181 /* Menu.swift in Sources */,
 				49F82D422749E80C004D986D /* main.swift in Sources */,
 				4969636D274C98AE00339822 /* FixedSize.swift in Sources */,
-				49F82D4E274A21C5004D986D /* ConfigurationController.swift in Sources */,
+				49F82D4E274A21C5004D986D /* ConfigurationViewController.swift in Sources */,
 				49F82D48274A0CC5004D986D /* WindowController.swift in Sources */,
 				49D08705274BBE2A00859181 /* Toolbar.swift in Sources */,
 				49F82D46274A0609004D986D /* VirtualMachine.swift in Sources */,
@@ -201,9 +201,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49D086FF274BBA9C00859181 /* VirtualApple.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = RYS7R26Y6Y;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				PRODUCT_BUNDLE_IDENTIFIER = su.mingchang.VirtualApple;
 			};
 			name = Debug;
 		};
@@ -211,9 +208,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49D086FF274BBA9C00859181 /* VirtualApple.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = RYS7R26Y6Y;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				PRODUCT_BUNDLE_IDENTIFIER = su.mingchang.VirtualApple;
 			};
 			name = Release;
 		};

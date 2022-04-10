@@ -12,16 +12,15 @@ import Virtualization
 class ViewController: NSViewController, NSToolbarItemValidation, NSMenuItemValidation {
 	var virtualMachine: VirtualMachine!
 	var virtualMachineView: VZVirtualMachineView!
-	
 	convenience init(virtualMachine: VirtualMachine) {
 		self.init()
 		self.virtualMachine = virtualMachine
 	}
-	
+
 	override func loadView() {
 		setupVirtualMachineView()
 	}
-	
+
 	func setupVirtualMachineView() {
 		let virtualMachineView = VZVirtualMachineView()
 		virtualMachineView.capturesSystemKeys = true
@@ -29,11 +28,11 @@ class ViewController: NSViewController, NSToolbarItemValidation, NSMenuItemValid
 		self.virtualMachineView = virtualMachineView
 		view = virtualMachineView
 	}
-	
+
 	@IBAction func openSettings(_ sender: NSToolbarItem) {
-		presentAsSheet(ConfigurationController(virtualMachine: virtualMachine))
+		presentAsSheet(ConfigurationViewController(virtualMachine: virtualMachine))
 	}
-	
+
 	@IBAction func toggleState(_ sender: NSToolbarItem) {
 		if virtualMachine.metadata.installed {
 			(!virtualMachine.running ? run : stop)(sender)
@@ -41,7 +40,6 @@ class ViewController: NSViewController, NSToolbarItemValidation, NSMenuItemValid
 			presentAsSheet(InstallViewController(virtualMachine: virtualMachine))
 		}
 	}
-	
 	@IBAction func run(_ sender: Any?) {
 		Task {
 			try virtualMachine.setupVirtualMachine()
@@ -52,33 +50,32 @@ class ViewController: NSViewController, NSToolbarItemValidation, NSMenuItemValid
 			view.window!.toolbar!.validateVisibleItems()
 		}.presentErrorIfNecessary(window: view.window!)
 	}
-	
 	@IBAction func stop(_ sender: Any?) {
 		Task {
 			try await virtualMachine.stop()
 			view.window!.toolbar!.validateVisibleItems()
 		}.presentErrorIfNecessary(window: view.window!)
 	}
-	
+
 	func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
 		switch menuItem.action {
-		case #selector(run(_:)):
-			return !virtualMachine.running
-		case #selector(stop(_:)):
-			return virtualMachine.running
-		default:
-			preconditionFailure()
+			case #selector(run(_:)):
+				return !virtualMachine.running
+			case #selector(stop(_:)):
+				return virtualMachine.running
+			default:
+				preconditionFailure()
 		}
 	}
-	
+
 	func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
 		switch ToolbarIdentifiers(item.itemIdentifier)! {
-		case .settings:
-			return !virtualMachine.running
-		case .toggleState:
-			item.image = virtualMachine.running ? NSImage(systemSymbolName: "stop", accessibilityDescription: "Stop") : NSImage(systemSymbolName: "play", accessibilityDescription: "Run")
-			view.window!.isDocumentEdited = virtualMachine.running
-			return true
+			case .settings:
+				return !virtualMachine.running
+			case .toggleState:
+				item.image = virtualMachine.running ? NSImage(systemSymbolName: "stop", accessibilityDescription: "Stop") : NSImage(systemSymbolName: "play", accessibilityDescription: "Run")
+				view.window!.isDocumentEdited = virtualMachine.running
+				return true
 		}
 	}
 }

@@ -25,7 +25,6 @@ extension NSStackView {
 		distribution = .fillProportionally
 		fitContents()
 	}
-	
 	func fitContents() {
 		setHuggingPriority(.defaultHigh, for: .vertical)
 		setHuggingPriority(.defaultHigh, for: .horizontal)

@@ -7,42 +7,31 @@
 
 import Cocoa
 
-
-class NoClipLayer: CALayer {
-	override var masksToBounds: Bool {
-		get {
-			false
-		}
-		set {
-		}
-	}
-}
-
 class LabeledSlider: NSView {
 	var slider: NSSlider!
 	var labels: [NSTextField]!
-	
+
 	override var firstBaselineOffsetFromTop: CGFloat {
 		slider.firstBaselineOffsetFromTop
 	}
-	
+
 	override var wantsDefaultClipping: Bool {
 		false
 	}
-	
+
 	var tickValue: Int {
 		get {
-			lround(slider.doubleValue * Double(labels.count))
+			lround(slider.doubleValue * Double(labels.count - 1))
 		}
 		set {
-			slider.doubleValue = Double(newValue) / Double(labels.count)
+			slider.doubleValue = Double(newValue) / Double(labels.count - 1)
 		}
 	}
-	
+
 	convenience init(labels: [String]) {
 		self.init()
 		wantsLayer = true
-		layer = NoClipLayer()
+		layer!.masksToBounds = false
 		slider = NSSlider()
 		slider.translatesAutoresizingMaskIntoConstraints = false
 		slider.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -63,6 +52,7 @@ class LabeledSlider: NSView {
 		let offset = CGFloat(self.labels.count) / 256
 		for (i, label) in self.labels.enumerated() {
 			constraints.append(NSLayoutConstraint(item: label, attribute: .centerX, relatedBy: .equal, toItem: slider, attribute: .centerX, multiplier: 2 * (CGFloat(i) + offset) / (CGFloat(self.labels.count - 1) + 2 * offset) + 0.0001, constant: 0))
+<<<<<<< HEAD
 			
 		}
 		addSubview(slider)
@@ -73,6 +63,19 @@ class LabeledSlider: NSView {
 		])
 	}
 	
+=======
+
+		}
+		addSubview(slider)
+		NSLayoutConstraint.activate(
+			constraints + [
+				topAnchor.constraint(equalTo: slider.topAnchor),
+				leadingAnchor.constraint(equalTo: slider.leadingAnchor),
+				slider.trailingAnchor.constraint(equalTo: trailingAnchor),
+			])
+	}
+
+>>>>>>> c737f41dae24c40996ded7dccb222b160c857de8
 	override func layout() {
 		super.layout()
 		for label in labels {
