@@ -13,11 +13,11 @@ extension UTType {
 }
 
 @MainActor
-class AppDelegate: NSObject, NSApplicationDelegate {	
+class AppDelegate: NSObject, NSApplicationDelegate {
 	func applicationWillFinishLaunching(_ notification: Notification) {
 		Self.setupMenu()
 	}
-	
+
 	func application(_ application: NSApplication, open urls: [URL]) {
 		for url in urls {
 			do {
@@ -29,17 +29,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			}
 		}
 	}
-	
 	func applicationOpenUntitledFile(_ sender: NSApplication) -> Bool {
 		openDocument(sender)
 		return true
 	}
-	
 	@objc
 	func newDocument(_ sender: Any?) {
 		newVirtualMachineController()?.showWindow(self)
 	}
-	
 	@objc
 	func openDocument(_ sender: Any?) {
 		let openPanel = NSOpenPanel()
@@ -51,7 +48,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 		application(NSApp, open: openPanel.urls)
 	}
-	
 	@objc
 	@IBAction func newWindowForTab(_ sender: Any?) {
 		guard let controller = newVirtualMachineController() else {
@@ -62,12 +58,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 		controller.showWindow(sender)
 	}
-	
 	func newVirtualMachineController() -> WindowController? {
 		let savePanel = NSSavePanel()
 		savePanel.allowedContentTypes = [.vmApple]
 		guard savePanel.runModal() == .OK,
-			  let url = savePanel.url else {
+			let url = savePanel.url
+		else {
 			return nil
 		}
 		do {
@@ -80,4 +76,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 	}
 }
-

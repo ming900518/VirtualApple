@@ -15,51 +15,46 @@ class InstallViewController: NSViewController, NSTextFieldDelegate {
 	var installButton: NSButton!
 	var installProgressIndicator: NSProgressIndicator!
 	var installing = false
-	
 	convenience init(virtualMachine: VirtualMachine) {
 		self.init()
 		self.virtualMachine = virtualMachine
 	}
-	
+
 	override func loadView() {
 		let view = NSView()
-		
+
 		let ipswLabel = NSTextField(labelWithString: "IPSW:")
 		ipswPathControl = NSPathControl()
+		ipswPathControl.target = self
+		ipswPathControl.action = #selector(ipswSelected(_:))
 		ipswPathControl.isEditable = true
 		ipswPathControl.pathStyle = .popUp
 		let ipswStackView = NSStackView(fixedSizeViews: [ipswLabel, ipswPathControl])
 		ipswStackView.alignment = .firstBaseline
-		
 		let diskSizeLabel = NSTextField(labelWithString: "Disk size:")
 		diskSizeTextField = NSTextField()
 		diskSizeTextField.delegate = self
 		let diskSizeGBLabel = NSTextField(labelWithString: "GB")
 		let diskSizeStackView = NSStackView(fixedSizeViews: [diskSizeLabel, diskSizeTextField, diskSizeGBLabel])
 		diskSizeStackView.alignment = .firstBaseline
-		
 		let installStackView = NSStackView(views: [ipswStackView, diskSizeStackView])
 		installStackView.orientation = .vertical
 		installStackView.fitContents()
 		view.addSubview(installStackView)
-		
 		let cancelButton = NSButton(title: "Cancel", target: self, action: #selector(cancel(_:)))
 		cancelButton.translatesAutoresizingMaskIntoConstraints = false
 		cancelButton.keyEquivalent = "\u{1b}"
 		view.addSubview(cancelButton)
-		
 		installButton = NSButton(title: "Install", target: self, action: #selector(install(_:)))
 		installButton.translatesAutoresizingMaskIntoConstraints = false
 		installButton.keyEquivalent = "\r"
 		view.addSubview(installButton)
-		
 		installProgressIndicator = NSProgressIndicator()
 		installProgressIndicator.translatesAutoresizingMaskIntoConstraints = false
 		installProgressIndicator.maxValue = 1
 		installProgressIndicator.isIndeterminate = false
 		installProgressIndicator.isHidden = true
 		view.addSubview(installProgressIndicator)
-		
 		NSLayoutConstraint.activate([
 			installStackView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1),
 			view.trailingAnchor.constraint(equalToSystemSpacingAfter: installStackView.trailingAnchor, multiplier: 1),
@@ -78,12 +73,12 @@ class InstallViewController: NSViewController, NSTextFieldDelegate {
 			cancelButton.leadingAnchor.constraint(equalToSystemSpacingAfter: installProgressIndicator.trailingAnchor, multiplier: 1),
 			installButton.centerYAnchor.constraint(equalTo: installProgressIndicator.centerYAnchor),
 		])
-		
+
 		validateUI()
-		
+
 		self.view = view
 	}
-	
+
 	func validateUI() {
 		installButton.title = installing ? "Installing…" : "Install"
 		installButton.isEnabled = !installing && ipswPathControl.url != nil && Int(diskSizeTextField.stringValue) != nil
@@ -93,15 +88,19 @@ class InstallViewController: NSViewController, NSTextFieldDelegate {
 		diskSizeTextField.isEditable = !installing
 		diskSizeTextField.isEnabled = !installing
 	}
-	
-	func controlTextDidChange(_ obj: Notification) {
+
+	@IBAction func controlTextDidChange(_ obj: Notification) {
 		validateUI()
 	}
-	
+
+	@IBAction func ipswSelected(_ sender: NSPathControl) {
+		validateUI()
+	}
+
 	@IBAction func cancel(_ sender: NSButton) {
 		dismiss(self)
 	}
-	
+
 	@IBAction func install(_ sender: NSButton) {
 		installing = true
 		validateUI()
